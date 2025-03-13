@@ -1,18 +1,37 @@
-import Menu from "@/components/Menu";
+"use client";
+
+import { useState } from "react";
+import Menu from "@/components/Menu/Menu";
 import Calendar from "@/components/Calendar/page";
 import Ledger from "@/components/Ledger/page";
 import Statistics from "@/components/Statistics/page";
+import "./style.css";
 
 export default function Basic() {
+  // 선택된 메뉴
+  const [selectedMenu, setSelectedMenu] = useState<string>("calendar");
+
+  // 선택된 메뉴에 맞는 컴포넌트 렌더링
+  const renderComponent = () => {
+    switch (selectedMenu) {
+      case "ledger":
+        return <Ledger />;
+      case "statistics":
+        return <Statistics />;
+      default:
+        return <Calendar />;
+    }
+  };
+
   return (
-    <div>
-      <Menu />
-      {/* 캘린더 선택 */}
-      <Calendar />
-      {/* 가계부 선택 */}
-      <Ledger />
-      {/* 통계 선택 */}
-      <Statistics />
+    <div className="basic-layout">
+      {/* 선택된 메뉴(props로 선택된 메뉴 인자값 주기) */}
+      <Menu selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
+
+      <div className="main-container">
+        {/* 선택된 메뉴 컴포넌트 렌더링 */}
+        {renderComponent()}
+      </div>
     </div>
   );
 }
