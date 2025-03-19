@@ -1,22 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-interface IncomeData {
+interface DetailsData {
   date: number;
   description: string;
   amount: number;
 }
 
-interface IncomeProps {
-  size: Number;
-  data: IncomeData[];
-  setData: React.Dispatch<React.SetStateAction<IncomeData[]>>;
+interface DetailsProps {
+  type: string;
+  size: number;
+  data: DetailsData[];
+  setData: React.Dispatch<React.SetStateAction<DetailsData[]>>;
 }
 
-const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
+const Details: React.FC<DetailsProps> = ({ type, size, data, setData }) => {
   ////////////입력값 관련////////////////
   // 입력값
-  const [newIncome, setNewIncome] = useState<IncomeData>({
+  const [newDetails, setNewDetails] = useState<DetailsData>({
     date: 0,
     description: "",
     amount: 0,
@@ -25,7 +26,7 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
   // 입력값 변경 핸들러
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setNewIncome((prev) => ({
+    setNewDetails((prev) => ({
       ...prev,
       [name]: name === "date" || name === "amount" ? value.replace(/[^0-9]/g, "") : value
     }));
@@ -57,30 +58,36 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
 
 
   ////////////데이터 추가//////////////
+  const scrollRef = useRef<HTMLDivElement>(null);
   const handleAdd = () => {
     // 빈 데이터가 있을 경우
-    if (!newIncome.date || !newIncome.description || !newIncome.amount) {
+    if (!newDetails.date || !newDetails.description || !newDetails.amount) {
       alert("모든 값을 입력해주세요.");
       return;
     }
 
     // 오류 - date
-    if (Number(newIncome.date) < 1 || Number(newIncome.date)  > 31) {
+    if (Number(newDetails.date) < 1 || Number(newDetails.date)  > 31) {
       alert("날짜는 1부터 31 사이의 숫자여야 합니다.");
       return;
     }
 
     // 성공 - 데이터 전송 후 초기화
-    if (newIncome.date && newIncome.description && newIncome.amount) {
-      console.log("데이터 추가: ", newIncome);
-
+    if (newDetails.date && newDetails.description && newDetails.amount) {
       setData((prevData) => [...prevData, { 
-        date: Number(newIncome.date), 
-        description: newIncome.description, 
-        amount: Number(newIncome.amount) 
+        date: Number(newDetails.date), 
+        description: newDetails.description, 
+        amount: Number(newDetails.amount) 
       }]);
 
-      setNewIncome({ date: 0, description: "", amount: 0 });
+      setNewDetails({ date: 0, description: "", amount: 0 });
+
+      // 스크롤 내리기
+      setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+      }, 100);
     }
   };
 
@@ -91,52 +98,53 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
 
   const handleEdit = (index: number) => {
     const item = data[index];
-    setNewIncome(item);
+    setNewDetails(item);
     setEditIndex(index);
     setContextMenu(null);
   };
   
+  
   const handleUpdate = () => {
     // 빈 데이터가 있을 경우
-    if (!newIncome.date || !newIncome.description || !newIncome.amount) {
+    if (!newDetails.date || !newDetails.description || !newDetails.amount) {
       alert("모든 값을 입력해주세요.");
       return;
     }
 
     // 오류 - date
-    if (Number(newIncome.date) < 1 || Number(newIncome.date)  > 31) {
+    if (Number(newDetails.date) < 1 || Number(newDetails.date)  > 31) {
       alert("날짜는 1부터 31 사이의 숫자여야 합니다.");
       return;
     }
 
     setData((prevData) =>
       prevData.map((item, i) => (i === editIndex ? { 
-        date: Number(newIncome.date), 
-        description: newIncome.description, 
-        amount: Number(newIncome.amount) 
+        date: Number(newDetails.date), 
+        description: newDetails.description, 
+        amount: Number(newDetails.amount) 
       } : item))
     );
 
     setEditIndex(null);
-    setNewIncome({ date: 0, description: "", amount: 0 });
+    setNewDetails({ date: 0, description: "", amount: 0 });
   };
 
   ////////////데이터 삭제//////////////
   const handleDelete = (index: number) => {
     setData((prevData) => prevData.filter((_, i) => i !== index));
     setEditIndex(null);
-    setNewIncome({ date: 0, description: "", amount: 0 });
+    setNewDetails({ date: 0, description: "", amount: 0 });
   };
 
   ///////////입력 값 초기화/////////////
   const handleReset = () => {
     setEditIndex(null);
-    setNewIncome({ date: 0, description: "", amount: 0 });
+    setNewDetails({ date: 0, description: "", amount: 0 });
   };
 
   return (
     <div>
-      <div className="m-0 p-0 overflow-hidden rounded-md border border-[#919191] max-w-[350px]">
+      <div className="m-0 p-0 overflow-hidden rounded-md border border-[#919191] min-w-[330px]">
         
         <table className="w-full border-collapse overflow-hidden">
           <thead className="bg-[#F8E08E] border-b border-[#919191]">
@@ -148,13 +156,14 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
           </thead>
         </table>
         
-        <div 
+        <div
+          ref={scrollRef}  
           className="m-0 p-0 overflow-y-scroll scrollbar-thin"
           style={{ minHeight: `${size}px`, maxHeight: `${size}px` }}
         >
         <table className="w-full border-collapse overflow-hidden rounded-lg">
           <tbody >          
-            {data.map((income, index) => (
+            {data.map((details, index) => (
               <tr
                 key={index}
                 onContextMenu={(e) => handleContextMenu(e, index)}
@@ -162,9 +171,9 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
                   ${editIndex === index ? "bg-[#F8E08E]" : "hover:bg-[#F9F5EA]"} 
                 `}
               >
-                <td className=" px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-2/9">{income.date}일</td>
-                <td className=" px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-5/9">{income.description}</td>
-                <td className=" px-3 py-1 text-sm font-normal text-right whitespace-nowrap w-2/9">{income.amount.toLocaleString()}원</td>
+                <td className=" px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-2/9">{details.date}일</td>
+                <td className=" px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-5/9">{details.description}</td>
+                <td className=" px-3 py-1 text-sm font-normal text-right whitespace-nowrap w-2/9">{details.amount.toLocaleString()}원</td>
               </tr>
             ))}
             </tbody>
@@ -194,12 +203,12 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
       )}
 
       {/* 새로운 데이터 입력 필드 + 전송 버튼 */}
-      <div className="flex items-center max-w-[350px]">
+      <div className="flex items-center max-w-[330px]">
         <div className="border border-[#919191] rounded-md p-0 mx-0 my-1 ">
           <input
             type="text"
             name="date"
-            value={newIncome.date || ""}
+            value={newDetails.date || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className="w-2/10 px-2 py-1 text-sm text-center focus:outline-none"
@@ -208,7 +217,7 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
           <input
             type="text"
             name="description"
-            value={newIncome.description}
+            value={newDetails.description}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className="w-5/10 px-2 py-1 text-sm text-center border-l border-r border-[#919191] focus:outline-none"
@@ -217,7 +226,7 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
           <input
             type="text"
             name="amount"
-            value={newIncome.amount || ""}
+            value={newDetails.amount || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className="w-3/10 px-2 py-1 text-sm text-right focus:outline-none"
@@ -241,4 +250,4 @@ const Income: React.FC<IncomeProps> = ({ size, data, setData }) => {
   );
 };
 
-export default Income;
+export default Details;

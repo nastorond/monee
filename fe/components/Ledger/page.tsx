@@ -1,21 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Income from "./Income";
+import Details from "./Details";
+import VariableExpenses from "./VariableExpenses";
+import Total from "./Total";
 
-interface IncomeData {
+interface Data {
   date: number;
   description: string;
   amount: number;
 }
 
 export default function Ledger() {
-  const [incomeData, setIncomeData] = useState<IncomeData[]>([]);
-  const [savingsData, setSavingsData] = useState<IncomeData[]>([]);
-  const [fixedExpensesData, setFixedExpensesData] = useState<IncomeData[]>([]);
+  const [incomeData, setIncomeData] = useState<Data[]>([]);
+  const [savingsData, setSavingsData] = useState<Data[]>([]);
+  const [fixedExpensesData, setFixedExpensesData] = useState<Data[]>([]);
+  const [variableExpensesData, setVariableExpensesData] = useState<Data[]>([]);
 
   useEffect(() => {
-    const tempIncomeData: IncomeData[] = [
+    const tempIncomeData: Data[] = [
       { date: 1, description: "월급", amount: 2000000 },
       { date: 5, description: "보너스", amount: 500000 },
       { date: 1, description: "월급", amount: 2000000 },
@@ -23,7 +26,7 @@ export default function Ledger() {
     ];
     setIncomeData(tempIncomeData);
 
-    const tempSavingsData: IncomeData[] = [
+    const tempSavingsData: Data[] = [
       { date: 1, description: "예금", amount: 20000 },
       { date: 5, description: "적금", amount: 550000 },
       { date: 15, description: "주식", amount: 500000 },
@@ -35,8 +38,7 @@ export default function Ledger() {
     ];
     setSavingsData(tempSavingsData);
 
-
-    const tempFixedExpensesData: IncomeData[] = [
+    const tempFixedExpensesData: Data[] = [
       { date: 1, description: "유튜브", amount: 20000 },
       { date: 5, description: "넷플릭스", amount: 550000 },
       { date: 15, description: "디즈니 플러스", amount: 500000 },
@@ -44,6 +46,38 @@ export default function Ledger() {
       { date: 16, description: "보험2", amount: 20000 },
     ];
     setFixedExpensesData(tempFixedExpensesData);
+
+    const tempVariableExpensesData: Data[] = [
+      { date: 1, description: "수건 5장", amount: 20000 },
+      { date: 5, description: "병원", amount: 550000 },
+      { date: 15, description: "약국", amount: 500000 },
+      { date: 12, description: "자전거 구매", amount: 2000000 },
+      { date: 13, description: "떡볶이세트", amount: 20000 },
+      { date: 15, description: "약국", amount: 5000 },
+      { date: 15, description: "붕어빵", amount: 2000 },
+      { date: 16, description: "책 구매", amount: 15000 },
+      { date: 1, description: "수건 5장", amount: 20000 },
+      { date: 5, description: "병원", amount: 550000 },
+      { date: 15, description: "약국", amount: 500000 },
+      { date: 12, description: "자전거 구매", amount: 2000000 },
+      { date: 13, description: "떡볶이세트", amount: 20000 },
+      { date: 15, description: "약국", amount: 5000 },
+      { date: 15, description: "붕어빵", amount: 2000 },
+      { date: 16, description: "책 구매", amount: 15000 },
+      { date: 1, description: "수건 5장", amount: 20000 },
+      { date: 5, description: "병원", amount: 550000 },
+      { date: 15, description: "약국", amount: 500000 },
+      { date: 12, description: "자전거 구매", amount: 2000000 },
+      { date: 13, description: "떡볶이세트", amount: 20000 },
+      { date: 15, description: "약국", amount: 5000 },
+      { date: 15, description: "붕어빵", amount: 2000 },
+      { date: 16, description: "책 구매1", amount: 15000 },
+      { date: 16, description: "책 구매2", amount: 15000 },
+      { date: 15, description: "붕어빵", amount: 2000 },
+      { date: 16, description: "책 구매1", amount: 15000 },
+      { date: 16, description: "책 구매23", amount: 15000 },
+    ];
+    setVariableExpensesData(tempVariableExpensesData);
   }, []);
 
 
@@ -61,31 +95,44 @@ export default function Ledger() {
 
   return (
     <div>
-      <div className="flex flex-row justify-between gap-5 mt-3">
-        {/* 1단 */}
-        <div className="flex flex-col justify-between gap-10">
-          {/* 수입 */}
-          <div>
-            <h2 className="mb-1 text-lg font-bold text-center">수입</h2>
-            <Income size={115} data={incomeData} setData={setIncomeData} />
-          </div>
+      <div className="flex flex-row gap-10 mt-5 justify-center">
 
-          {/* 저축 */}
-          <div>
-            <h2 className="mb-1 text-lg font-bold text-center">저축</h2>
-            <Income size={205} data={savingsData} setData={setSavingsData} />
+        <div className="flex flex-col gap-5 flew-1">
+          <div className="flex flex-row gap-10 flew-1">
+            <div className="flex flex-col gap-5 flew-1">
+              {/* 수입 */}
+              <div>
+                <h2 className="mb-1 mr-6 text-lg font-bold text-center">수입</h2>
+                <Details type="incomes" size={116} data={incomeData} setData={setIncomeData} />
+              </div>
+
+              {/* 저축 */}
+              <div>
+                <h2 className="mb-1 mr-6 text-lg font-bold text-center">저축</h2>
+                <Details type="savings" size={203} data={savingsData} setData={setSavingsData} />
+              </div>
+            </div>
+
+
+            {/* 고정 지출 */}
+            <div className="flew-1">
+              <h2 className="mb-1 mr-6 text-lg font-bold text-center">고정 지출</h2>
+              <Details type="fixedExpenses" size={440} data={fixedExpensesData} setData={setFixedExpensesData} />
+            </div>
+          </div>
+          
+          {/* 결산 */}
+          <div className="flew-1">
+            <h2 className="mb-1 text-lg font-bold text-center">결산</h2>
+            <Total />
           </div>
         </div>
 
-        {/* 2단 */}
-        {/* 고정 지출 */}
-        <div>
-          <h2 className="mb-1 text-lg font-bold text-center">고정 지출</h2>
-          <Income size={465} data={fixedExpensesData} setData={setFixedExpensesData} />
-        </div>
-
-        {/* 3단 */}
         {/* 변동 지출 */}
+        <div className="flew-1">
+          <h2 className="mb-1 text-lg font-bold text-center">변동 지출</h2>
+          <VariableExpenses type="variableExpenses" size={754} data={variableExpensesData} setData={setVariableExpensesData} />
+        </div>
       </div>
     </div>
   );

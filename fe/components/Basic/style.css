@@ -15,12 +15,8 @@
 /* 메인 컴포넌트 */
 .main-container {
   flex: 1;
-  padding: 2rem;
+
   background-color: white;
-  display: flex;
-  justify-content: flex-start;
   gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
   overflow-x: hidden;
 }
