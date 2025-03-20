@@ -1,15 +1,7 @@
-/* 전체 레이아웃 설정 */
+/* 기본 설정 */
 .basic-layout {
   display: flex;
   height: 100vh;
-}
-
-/* 메뉴 */
-.menu-container {
-  width: 240px;
-  background-color: #f9f5ea; /* 보조 색상 */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
 }
 
 /* 메인 컴포넌트 */
@@ -17,10 +9,13 @@
   flex: 1;
   padding: 2rem;
   background-color: white;
-  display: flex;
-  justify-content: flex-start;
   gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  overflow-x: hidden;
+}
+
+/* 화면이 작아졌을 때 (1024px) */
+@media (max-width: 1024px) {
+  .basic-layout {
+    display: block;
+    height: auto;
+  }
 }

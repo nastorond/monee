@@ -1,0 +1,51 @@
+/* 상세 내역 컨테이너 */
+.detail-container {
+  width: 400px;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* 날짜별 그룹 헤더 */
+.transaction-date-header {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+}
+
+/* 개별 거래 내역 */
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* 수입 */
+.income {
+  background-color: rgba(37, 99, 217, 0.1);
+  color: #2563d9;
+}
+
+/* 지출 */
+.expense {
+  background-color: rgba(231, 65, 76, 0.1);
+  color: #e7414c;
+}
+
+/* 선택된 거래 내역만 강조 */
+.transaction-item.selected {
+  background-color: rgba(37, 99, 217, 0.4);
+  color: #1e4bb8;
+  font-weight: bold;
+}
+
+.transaction-item.selected.expense {
+  background-color: rgba(231, 65, 76, 0.4);
+  color: #b22234;
+}
