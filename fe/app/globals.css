@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* 모든 스크롤바에 적용 */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 7px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #F8E08E;
+  border-radius: 4px;
+  border: 1px solid #D9D9D9;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background-color: #F9F5EA;
+  border: 0.1px solid #D9D9D9;
+}
+
 @font-face {
   font-family: 'NotoSansKR';
   src: url('/fonts/Noto_Sans_KR/static/NotoSansKR-Thin.ttf') format('truetype');
