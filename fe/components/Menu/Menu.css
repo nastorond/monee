@@ -1,31 +1,4 @@
-/* ============================= */
-/* 📌 왼쪽 메뉴 (기본 스타일) */
-/* ============================= */
-
-.menu-container {
-  min-width: 240px;
-  height: 100vh;
-  background-color: #f9f5ea;
-  padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-/* 메뉴 헤더 (로고 + 돼지) */
-.menu-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding: 12px;
-  gap: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
-/* ============================= */
-/* 📌 애니메이션 효과 */
-/* ============================= */
-
-/* 로고 클릭 시 튕기는 애니메이션 */
+/* 로고 애니메이션 */
 @keyframes bounce {
   0% { transform: scale(1) translateY(0); }
   30% { transform: scale(1.1) translateY(-10px); }
@@ -33,16 +6,11 @@
   100% { transform: scale(1) translateY(0); }
 }
 
-.bouncing-logo {
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
 .bouncing {
   animation: bounce 0.5s ease-in-out;
 }
 
-/* 돼지가 흔들리는 애니메이션 */
+/* 돼지 흔들리는 애니메이션 */
 @keyframes wiggle {
   0%, 100% { transform: rotate(0deg); }
   25% { transform: rotate(-15deg); }
@@ -51,138 +19,5 @@
 }
 
 .wiggling {
-  cursor: pointer;
   animation: wiggle 4s infinite ease-in-out;
 }
-
-/* ============================= */
-/* 📌 메뉴 리스트 & 항목 스타일 */
-/* ============================= */
-
-.menu-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* 개별 메뉴 항목 */
-.menu-item {
-  display: block;
-  padding: 0.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
-  font-weight: 500;
-}
-
-/* 선택된 메뉴 강조 */
-.menu-item.active {
-  background-color: #f8e08e;
-  font-weight: bold;
-}
-
-/* 메뉴 버튼 클릭 시 애니메이션 */
-.menu-item:active {
-  transform: scale(0.85);
-}
-
-.menu-item:hover {
-  background-color: rgba(248, 224, 142, 0.7);
-}
-
-/* 기본 사이드 메뉴 (큰 화면에서만 보임) */
-.menu-container {
-  width: 240px;
-  height: 100vh;
-  background-color: #f9f5ea;
-  padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-}
-
-/* 메뉴 리스트 스타일 */
-.menu-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* 선택된 메뉴 */
-.menu-item.active {
-  background-color: #f8e08e;
-  font-weight: bold;
-}
-
-/* 반응형 스타일 */
-@media (max-width: 768px) {
-  /* 기본 사이드바 숨김 */
-  .menu-container {
-    display: none;
-  }
-
-  /* 모바일 드롭다운 네비게이션 */
-  .mobile-menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-    background-color: #f9f5ea;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
-}
-
-@media (max-width: 768px) {
-  /* 햄버거 버튼 활성화 */
-  .hamburger-menu {
-    display: block;
-  }
-
-  /* 왼쪽 메뉴 숨김 (기본 상태) */
-  .menu-container {
-    position: fixed;
-    left: -100%; /* 기본적으로 화면 밖에 숨김 */
-    top: 0;
-    height: 100vh;
-    width: 240px;
-    transition: left 0.3s ease-in-out;
-  }
-
-  /* 메뉴가 열릴 때 */
-  .menu-container.open {
-    left: 0;
-  }
-
-  /* 메뉴가 열리면 닫기 버튼 표시 */
-  .menu-container.open .close-menu {
-    display: block;
-  }
-
-}
-
-/* 네비게이션 내부 항목 정렬 */
-.navbar-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 16px;
-}
-
-/* 네비게이션 링크 */
-.menu-link {
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
-  transition: color 0.2s ease-in-out;
-}
-
-.menu-link.active {
-  color: #2563D9; /* 선택된 메뉴 색상 */
-}
-

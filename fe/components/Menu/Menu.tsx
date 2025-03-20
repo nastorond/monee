@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Logo from "@/public/logo/logo_nukki.png";
 import LogoImg from "@/public/logo/figgy_nukki.png";
-import "./Menu.css";
 import MenuNavbar from "./MenuNavbar";
 
 interface MenuProps {
@@ -17,35 +16,35 @@ const Menu: React.FC<MenuProps> = ({ selectedMenu, setSelectedMenu }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
-    // 특정 사이즈 이하일 때 네비게이션 바로 변경
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 1024); // 1024px 이하일 때 적용
-    };
+    const handleResize = () => setIsSmallScreen(window.innerWidth <= 1024);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   const LogoClick = () => {
     setIsBouncing(true);
-    setTimeout(() => {
-      setIsBouncing(false);
-    }, 500);
+    setTimeout(() => setIsBouncing(false), 500);
   };
 
   return (
     <>
-      {/* 🟢 화면이 작아지면 네비게이션 바 표시 */}
       {isSmallScreen ? (
         <MenuNavbar selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
       ) : (
-        /* 🟢 기존 사이드 메뉴 유지 */
-        <nav className="menu-container">
-          <div className="menu-header">
+        <nav className="w-[240px] h-screen bg-[#f9f5ea] p-4 shadow-lg flex flex-col">
+          <div className="flex items-center mb-8 p-3 gap-3 cursor-pointer transition-transform duration-300">
             <Image src={LogoImg} alt="LogoImg" width={30} height={30} className="wiggling" />
-            <Image src={Logo} alt="Logo" width={130} height={30} className={`bouncing-logo ${isBouncing ? "bouncing" : ""}`} onClick={LogoClick}/>
+            <Image
+              src={Logo}
+              alt="Logo"
+              width={130}
+              height={30}
+              className={`bouncing-logo ${isBouncing ? "bouncing" : ""}`}
+              onClick={LogoClick}
+            />
           </div>
-          <ul className="menu-list">
+          <ul className="flex flex-col gap-4">
             {[
               { key: "calendar", label: "📅 캘린더" },
               { key: "ledger", label: "💰 가계부" },
@@ -53,7 +52,11 @@ const Menu: React.FC<MenuProps> = ({ selectedMenu, setSelectedMenu }) => {
             ].map(({ key, label }) => (
               <li
                 key={key}
-                className={`menu-item ${selectedMenu === key ? "active" : ""}`}
+                className={`p-3 rounded-lg cursor-pointer transition-transform transform ${
+                  selectedMenu === key
+                    ? "bg-[#f8e08e] font-bold"
+                    : "hover:bg-[#f8e08e]/70 active:scale-90"
+                }`}
                 onClick={() => setSelectedMenu(key)}
               >
                 {label}
