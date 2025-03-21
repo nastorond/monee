@@ -8,6 +8,7 @@ interface CalendarHeaderProps {
   currentMonth: number;
   setCurrentYear: React.Dispatch<React.SetStateAction<number>>;
   setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
+  goToday: () => void;
 }
 
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
@@ -15,6 +16,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   currentMonth,
   setCurrentYear,
   setCurrentMonth,
+  goToday,
 }) => {
   const changeMonth = (direction: "prev" | "next") => {
     setCurrentMonth((prevMonth) => {
@@ -35,10 +37,17 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   };
 
   return (
-    <div className="calendar-header">
-      <button onClick={() => changeMonth("prev")}>◀</button>
-      <h2>{currentYear}년 {currentMonth}월</h2>
-      <button onClick={() => changeMonth("next")}>▶</button>
+    <div className="calendar-header relative flex items-center gap-10">
+      <button className="cursor-pointer" onClick={() => changeMonth("prev")}>◀</button>
+        <h2>{currentYear}년 {currentMonth}월</h2>
+      <button className="cursor-pointer" onClick={() => changeMonth("next")}>▶</button>
+
+      <button
+        className="today-button absolute top-0 right-0"
+        onClick={goToday}
+      >
+        📅
+      </button>
     </div>
   );
 };

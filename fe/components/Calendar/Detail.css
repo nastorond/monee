@@ -1,9 +1,17 @@
 /* 상세 내역 컨테이너 */
 .detail-container {
   width: 400px;
-  height: 100vh;
+  height: 680px;
   overflow-y: auto;
   scroll-behavior: smooth;
+}
+
+.detail-header {
+  position: sticky;
+  top: -17;
+  background-color: white;
+  padding: 10px 0;
+  z-index: 10;
 }
 
 /* 날짜별 그룹 헤더 */

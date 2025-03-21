@@ -36,9 +36,11 @@ const Detail: React.FC<DetailProps> = ({ transactions, selectedDate }) => {
 
   return (
     <div ref={containerRef} className="detail-container bg-white shadow-lg rounded-lg p-4 w-96 h-screen overflow-y-auto">
-      <h3 className="text-lg font-bold mb-4">
-        📜 {selectedDate ? `${selectedDate.split("-")[0]}년 ${selectedDate.split("-")[1]}월 전체 내역` : "거래 내역"}
-      </h3>
+      <div className="detail-header">
+        <h3 className="text-lg font-bold">
+          {selectedDate ? `${selectedDate.split("-")[0]}년 ${selectedDate.split("-")[1]}월 전체 내역` : "거래 내역"}
+        </h3>
+      </div>
 
       <ul className="space-y-4">
         {Object.keys(groupTransactions).length > 0 ? (
