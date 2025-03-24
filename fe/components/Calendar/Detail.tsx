@@ -22,7 +22,7 @@ const Detail: React.FC<DetailProps> = ({ transactions, selectedDate }) => {
   useEffect(() => {
     if (selectedDate && dateRefs.current[selectedDate] && containerRef.current) {
       containerRef.current.scrollTo({
-        top: dateRefs.current[selectedDate]!.offsetTop - 50,
+        top: dateRefs.current[selectedDate]!.offsetTop - 100,
         behavior: "smooth",
       });
     }
