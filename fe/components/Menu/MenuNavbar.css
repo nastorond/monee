@@ -1,0 +1,13 @@
+@media (max-width: 1024px) {
+  .navbar-content {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-wrap: wrap;
+    gap: 2px;
+    justify-content: center;
+  }
+}

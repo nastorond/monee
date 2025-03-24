@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Menu from "@/components/Menu/Menu";
-import Calendar from "@/components/Calendar/page";
+import Calendar from "@/components/Calendar/Calendar";
 import Ledger from "@/components/Ledger/page";
 import Statistics from "@/components/Statistics/page";
 import "./style.css";
