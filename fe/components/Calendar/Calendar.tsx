@@ -40,8 +40,8 @@ const Calendar = () => {
   };
 
   return (
-    <div className="calendar-container flex flex-col items-center w-full h-screen p-5">
-      <div className="calendar-detail-container flex gap-10 justify-center w-full max-w-[1200px]">
+    <div className="calendar-container flex flex-col justify-center items-center w-full min-h-screen p-5">
+      <div className="calendar-detail-container flex gap-20 items-start w-full max-w-[1200px]">
         <div className="calendar-box bg-white p-4 rounded-xl shadow-md w-[800px] min-h-[650px]">
           <Month />
 
@@ -52,7 +52,7 @@ const Calendar = () => {
           </div>
 
           <div className="calendar-grid">
-            {/* 이전 달 */}
+            {/* 저번 달 */}
             {[...Array(getFirstDayOfMonth(year, month))].map((_, index) => {
               const prevDay =
                 getLastDayPrevMonth(year, month) -

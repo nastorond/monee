@@ -42,19 +42,9 @@
   border: 2px solid #2563D9;
 }
 
-.calendar-top-bar {
-  width: 100%;
-  display: flex;
-  /* justify-content: flex-end; */
-  margin-bottom: 10px;
-}
-
 .today-button {
   padding: 8px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* 요일 */
@@ -62,12 +52,6 @@
   font-weight: bold;
   padding: 5px 0;
   background-color: #f9f9f9;
-}
-
-/* 이전 달, 다음 달 */
-.prev-month, .next-month {
-  color: #c0c0c0;
-  background-color: #f3f3f3;
 }
 
 /* 수입/지출 내역 */
