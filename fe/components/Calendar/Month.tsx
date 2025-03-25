@@ -1,50 +1,39 @@
 "use client";
 
-import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import { setYear, setMonth, goToday } from "../../store/calendarSlice";
 import "./Calendar.css";
 
-interface CalendarHeaderProps {
-  currentYear: number;
-  currentMonth: number;
-  setCurrentYear: React.Dispatch<React.SetStateAction<number>>;
-  setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
-  goToday: () => void;
-}
+const Month = () => {
+  const dispatch = useDispatch();
+  const year = useSelector((state: RootState) => state.calendar.year);
+  const month = useSelector((state: RootState) => state.calendar.month);
 
-const CalendarHeader: React.FC<CalendarHeaderProps> = ({
-  currentYear,
-  currentMonth,
-  setCurrentYear,
-  setCurrentMonth,
-  goToday,
-}) => {
   const changeMonth = (direction: "prev" | "next") => {
-    setCurrentMonth((prevMonth) => {
-      let newMonth = direction === "prev" ? prevMonth - 1 : prevMonth + 1;
-      let newYear = currentYear;
+    let newMonth = direction === "prev" ? month - 1 : month + 1;
+    let newYear = year;
 
-      if (newMonth === 0) {
-        newYear -= 1;
-        newMonth = 12;
-      } else if (newMonth === 13) {
-        newYear += 1;
-        newMonth = 1;
-      }
+    if (newMonth === 0) {
+      newYear -= 1;
+      newMonth = 12;
+    } else if (newMonth === 13) {
+      newYear += 1;
+      newMonth = 1;
+    }
 
-      setCurrentYear(newYear);
-      return newMonth;
-    });
+    dispatch(setYear(newYear));
+    dispatch(setMonth(newMonth));
   };
 
   return (
     <div className="calendar-header relative flex items-center gap-10">
       <button className="cursor-pointer" onClick={() => changeMonth("prev")}>◀</button>
-        <h2>{currentYear}년 {currentMonth}월</h2>
+      <h2>{year}년 {month}월</h2>
       <button className="cursor-pointer" onClick={() => changeMonth("next")}>▶</button>
-
       <button
         className="today-button absolute top-0 right-0"
-        onClick={goToday}
+        onClick={() => dispatch(goToday())}
       >
         📅
       </button>
@@ -52,4 +41,4 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   );
 };
 
-export default CalendarHeader;
+export default Month;
