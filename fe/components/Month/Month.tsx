@@ -3,7 +3,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import { setYear, setMonth, goToday } from "../../store/calendarSlice";
-import "./Calendar.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import MonthPicker from "./MonthPicker";
 
 const Month = () => {
   const dispatch = useDispatch();
@@ -27,12 +28,27 @@ const Month = () => {
   };
 
   return (
-    <div className="calendar-header relative flex items-center gap-10">
-      <button className="cursor-pointer" onClick={() => changeMonth("prev")}>◀</button>
-      <h2>{year}년 {month}월</h2>
-      <button className="cursor-pointer" onClick={() => changeMonth("next")}>▶</button>
+    <div className="calendar-header relative flex items-center gap-4 sm:gap-6">
+      {/* ◀ 버튼 */}
       <button
-        className="today-button absolute top-0 right-0"
+        className="text-gray-600 hover:text-black transition"
+        onClick={() => changeMonth("prev")}
+      >
+        <ChevronLeft size={20} />
+      </button>
+
+      <MonthPicker />
+    
+      {/* ▶ 버튼 */}
+      <button
+        className="text-gray-600 hover:text-black transition"
+        onClick={() => changeMonth("next")}
+      >
+        <ChevronRight size={20} />
+      </button>
+
+      <button
+        className="today-button absolute top-0 right-0 text-sm text-white rounded px-3 py-1 hover:bg-blue-600 transition"
         onClick={() => dispatch(goToday())}
       >
         📅

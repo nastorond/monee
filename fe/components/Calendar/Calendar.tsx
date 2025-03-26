@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { setSelectedDate } from "../../store/calendarSlice";
-import Month from "./Month";
+import Month from "../Month/Month";
 import Detail from "./Detail";
 import { useMemo } from "react";
 import "./Calendar.css";
@@ -87,11 +87,11 @@ const Calendar = () => {
                   onClick={() => dispatch(setSelectedDate(dateKey))}
                 >
                   <span>{day}</span>
-                  {expenseTotal > 0 && (
-                    <div className="expense-amount">-{expenseTotal.toLocaleString()}원</div>
-                  )}
                   {incomeTotal > 0 && (
                     <div className="income-amount">+{incomeTotal.toLocaleString()}원</div>
+                  )}
+                  {expenseTotal > 0 && (
+                    <div className="expense-amount">-{expenseTotal.toLocaleString()}원</div>
                   )}
                 </div>
               );
