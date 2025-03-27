@@ -1,6 +1,11 @@
 "use client";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+
 import { useEffect, useState } from "react";
+
+import Month from "@/components/Month/Month";
 import Details from "./Details";
 import VariableExpenses from "./VariableExpenses";
 import Total from "./Total";
@@ -12,6 +17,10 @@ interface Data {
 }
 
 export default function Ledger() {
+  const dispatch = useDispatch();
+  const year = useSelector((state: RootState) => state.calendar.year);
+  const month = useSelector((state: RootState) => state.calendar.month);
+
   const [incomeData, setIncomeData] = useState<Data[]>([]);
   const [savingsData, setSavingsData] = useState<Data[]>([]);
   const [fixedExpensesData, setFixedExpensesData] = useState<Data[]>([]);
@@ -94,45 +103,50 @@ export default function Ledger() {
   //   };
 
   return (
-    <div>
-      <div className="flex flex-row gap-10 mt-5 justify-center">
+    <div className="m-5 p-4 flex flex-col justify-center border rounded-xl shadow-lg">
+      <div className="w-[500px] mx-auto">
+        <Month />
+      </div>
+      {/* flex 2 -> 수입, 저축, 고정 지출 / 변동 지출*/}
+      <div className="flex flex-col xl:flex-row gap-8 justify-center">
 
-        <div className="flex flex-col gap-5 flew-1">
-          <div className="flex flex-row gap-10 flew-1">
-            <div className="flex flex-col gap-5 flew-1">
-              {/* 수입 */}
+        <div>
+          {/* flex 1 -> 수입, 저축 / 고정 지출 */}
+          <div className="flex flex-row gap-8 flew-1 justify-center">
+            <div>
               <div>
                 <h2 className="mb-1 mr-6 text-lg font-bold text-center">수입</h2>
-                <Details type="incomes" size={116} data={incomeData} setData={setIncomeData} />
+                <Details type="incomes" size={275} data={incomeData} setData={setIncomeData} />
               </div>
 
-              {/* 저축 */}
               <div>
-                <h2 className="mb-1 mr-6 text-lg font-bold text-center">저축</h2>
-                <Details type="savings" size={203} data={savingsData} setData={setSavingsData} />
+                <h2 className="mt-3 mb-1 mr-6 text-lg font-bold text-center">저축</h2>
+                <Details type="savings" size={330} data={savingsData} setData={setSavingsData} />
               </div>
             </div>
 
-
-            {/* 고정 지출 */}
             <div className="flew-1">
               <h2 className="mb-1 mr-6 text-lg font-bold text-center">고정 지출</h2>
-              <Details type="fixedExpenses" size={440} data={fixedExpensesData} setData={setFixedExpensesData} />
+              <Details type="fixedExpenses" size={715} data={fixedExpensesData} setData={setFixedExpensesData} />
             </div>
-          </div>
-          
-          {/* 결산 */}
-          <div className="flew-1">
-            <h2 className="mb-1 text-lg font-bold text-center">결산</h2>
-            <Total />
           </div>
         </div>
 
-        {/* 변동 지출 */}
-        <div className="flew-1">
-          <h2 className="mb-1 text-lg font-bold text-center">변동 지출</h2>
-          <VariableExpenses type="variableExpenses" size={754} data={variableExpensesData} setData={setVariableExpensesData} />
+
+        <div>
+          {/* 변동 지출 */}
+          <div className="flew-1">
+            <h2 className="text-lg font-bold text-center">변동 지출</h2>
+            <VariableExpenses type="variableExpenses" size={610} data={variableExpensesData} setData={setVariableExpensesData} />
+          
+          </div>
+          {/* 결산 */}
+          <div className="mt-6 flew-1">
+              <h2 className="mb-1 text-lg font-bold text-center"></h2>
+              <Total />
+          </div>
         </div>
+
       </div>
     </div>
   );
