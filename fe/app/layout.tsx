@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import { ReduxProvider } from "../components/Redux/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,18 +19,16 @@ export const metadata: Metadata = {
   description: "Salary, don't run away!",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children,}: Readonly<{  children: React.ReactNode;}>) {
   return (
     <html lang="en">
       {/* <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={${geistSans.variable} ${geistMono.variable} antialiased}
       > */}
       <body>
-        {children}
+        <ReduxProvider>
+          {children}
+        </ReduxProvider>
         <Footer />
       </body>
     </html>
