@@ -149,13 +149,13 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
         
         <div className="flex flex-row">
           {/* 표1 */}
-          <div className="min-w-[330px]">
+          <div className="w-[50%]">
             <table className="w-full border-collapse overflow-hidden">
               <thead className="bg-[#F8E08E] border-b border-[#919191]">
                 <tr>
-                  <th className="px-3 py-1 text-sm font-semibold whitespace-nowrap w-2/9">날 짜</th>
-                  <th className="px-3 py-1 text-sm font-semibold whitespace-nowrap w-4/9">상세 내역</th>
-                  <th className="border-r border-[#919191] px-3 py-1 text-sm font-semibold whitespace-nowrap w-3/9">금 액</th>
+                  <th className="px-3 py-1 text-xs xl:text-sm font-semibold whitespace-nowrap w-[20%]">날 짜</th>
+                  <th className="px-3 py-1 text-xs xl:text-sm font-semibold whitespace-nowrap w-[50%]">상세 내역</th>
+                  <th className="border-r border-[#919191] px-3 py-1 text-xs xl:text-sm font-semibold whitespace-nowrap w-[30%]">금 액</th>
                 </tr>
               </thead>
             </table>
@@ -166,7 +166,7 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
             >
               <table className="w-full border-collapse overflow-hidden rounded-lg">
                 <tbody>          
-                  {data.slice(0, 26).map((details, index) => (
+                  {data.slice(0, 21).map((details, index) => (
                     <tr
                       key={index}
                       onContextMenu={(e) => handleContextMenu(e, index)}
@@ -174,9 +174,9 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
                         ${editIndex === index ? "bg-[#F8E08E]" : "hover:bg-[#F9F5EA]"} 
                       `}
                     >
-                      <td className=" px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-2/9">{details.date}일</td>
-                      <td className=" px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-5/9">{details.description}</td>
-                      <td className=" px-3 py-1 text-sm font-normal text-right whitespace-nowrap w-2/9">{details.amount.toLocaleString()}원</td>
+                      <td className=" px-3 py-1 text-xs xl:text-sm font-normal text-center whitespace-nowrap w-[20%]">{details.date}일</td>
+                      <td className=" px-3 py-1 text-xs xl:text-sm font-normal text-center whitespace-nowrap w-[50%]">{details.description}</td>
+                      <td className=" px-3 py-1 text-xs xl:text-sm font-normal text-right whitespace-nowrap w-[30%]">{details.amount.toLocaleString()}원</td>
                     </tr>
                   ))}
                 </tbody>
@@ -185,13 +185,13 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
           </div>
 
           {/* 표2 */}
-          <div className="min-w-[350px]">
+          <div className="w-[50%]">
             <table className="w-full border-collapse overflow-hidden">
               <thead className="bg-[#F8E08E] border-b border-[#919191]">
                 <tr>
-                  <th className=" px-3 py-1 text-sm font-semibold whitespace-nowrap w-2/9">날 짜</th>
-                  <th className="px-3 py-1 text-sm font-semibold whitespace-nowrap w-4/9">상세 내역</th>
-                  <th className="px-3 py-1 text-sm font-semibold whitespace-nowrap w-3/9">금 액</th>
+                  <th className=" px-3 py-1 text-xs xl:text-sm font-semibold whitespace-nowrap w-[20%]">날 짜</th>
+                  <th className="px-3 py-1 text-xs xl:text-sm font-semibold whitespace-nowrap w-[50%]">상세 내역</th>
+                  <th className="px-3 py-1 text-xs xl:text-sm font-semibold whitespace-nowrap w-[30%]">금 액</th>
                 </tr>
               </thead>
             </table>
@@ -203,17 +203,17 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
             >
               <table className="w-full border-collapse overflow-hidden rounded-lg">
                 <tbody >          
-                  {data.slice(26).map((details, index) => (
+                  {data.slice(21).map((details, index) => (
                     <tr
-                      key={index + 26}
+                      key={index + 21}
                       onContextMenu={(e) => handleContextMenu(e, index)}
                       className={`transition border-b border-[#919191] 
-                        ${editIndex === index + 26 ? "bg-[#F8E08E]" : "hover:bg-[#F9F5EA]"} 
+                        ${editIndex === index + 21 ? "bg-[#F8E08E]" : "hover:bg-[#F9F5EA]"} 
                       `}
                     >
-                      <td className="px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-2/9">{details.date}일</td>
-                      <td className=" px-3 py-1 text-sm font-normal text-center whitespace-nowrap w-5/9">{details.description}</td>
-                      <td className=" px-3 py-1 text-sm font-normal text-right whitespace-nowrap w-2/9">{details.amount.toLocaleString()}원</td>
+                      <td className="px-3 py-1 text-xs xl:text-sm font-normal text-center whitespace-nowrap w-[20%]">{details.date}일</td>
+                      <td className=" px-3 py-1 text-xs xl:text-sm font-normal text-center whitespace-nowrap w-[50%]">{details.description}</td>
+                      <td className=" px-3 py-1 text-xs xl:text-sm font-normal text-right whitespace-nowrap w-[30%]">{details.amount.toLocaleString()}원</td>
                     </tr>
                   ))}
                 </tbody>
@@ -227,7 +227,7 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
       {/* 컨텍스트 메뉴 (우클릭 시 표시) */}
       {contextMenu && (
         <div
-          className="absolute bg-white border border-gray-300 rounded-md shadow-md text-sm"
+          className="absolute bg-white border border-gray-300 rounded-md shadow-md text-xs xl:text-sm "
           style={{ top: contextMenu.y, left: contextMenu.x, zIndex: 50 }}
         >
           <button
@@ -254,7 +254,7 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
             value={newExpenses.date || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            className="w-2/10 px-2 py-1 text-sm text-center focus:outline-none"
+            className="w-2/10 px-2 py-1 text-xs xl:text-sm text-center focus:outline-none"
             placeholder="날짜"
           />
           <input
@@ -263,7 +263,7 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
             value={newExpenses.description}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            className="w-5/10 px-2 py-1 text-sm text-center border-l border-r border-[#919191] focus:outline-none"
+            className="w-5/10 px-2 py-1 text-xs xl:text-sm text-center border-l border-r border-[#919191] focus:outline-none"
             placeholder="상세 내용"
           />
           <input
@@ -272,7 +272,7 @@ const VariableExpenses: React.FC<ExpensesProps> = ({ type, size, data, setData }
             value={newExpenses.amount || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            className="w-3/10 px-2 py-1 text-sm text-right focus:outline-none"
+            className="w-3/10 px-2 py-1 text-xs xl:text-sm text-right focus:outline-none"
             placeholder="금액"
           />
         </div>
