@@ -103,17 +103,17 @@ export default function Ledger() {
   //   };
 
   return (
-    <div className="m-5 p-4 flex flex-col justify-center border rounded-xl shadow-lg">
+    <div className="m-5 p-4 flex flex-col gap-2 justify-center border rounded-xl shadow-lg">
       <div className="w-[500px] mx-auto">
         <Month />
       </div>
       {/* flex 2 -> 수입, 저축, 고정 지출 / 변동 지출*/}
       <div className="flex flex-col xl:flex-row gap-8 justify-center">
 
-        <div>
+        <div  className="xl:w-[48%]">
           {/* flex 1 -> 수입, 저축 / 고정 지출 */}
-          <div className="flex flex-row gap-8 flew-1 justify-center">
-            <div>
+          <div className="w-full flex flex-row gap-8 flew-1 justify-center">
+            <div className="w-[50%]">
               <div>
                 <h2 className="mb-1 mr-6 text-lg font-bold text-center">수입</h2>
                 <Details type="incomes" size={275} data={incomeData} setData={setIncomeData} />
@@ -125,7 +125,7 @@ export default function Ledger() {
               </div>
             </div>
 
-            <div className="flew-1">
+            <div className="w-[50%]">
               <h2 className="mb-1 mr-6 text-lg font-bold text-center">고정 지출</h2>
               <Details type="fixedExpenses" size={715} data={fixedExpensesData} setData={setFixedExpensesData} />
             </div>
@@ -133,10 +133,10 @@ export default function Ledger() {
         </div>
 
 
-        <div>
+        <div className="xl:w-[52%]">
           {/* 변동 지출 */}
           <div className="flew-1">
-            <h2 className="text-lg font-bold text-center">변동 지출</h2>
+            <h2 className="mb-1 text-lg font-bold text-center">변동 지출</h2>
             <VariableExpenses type="variableExpenses" size={610} data={variableExpensesData} setData={setVariableExpensesData} />
           
           </div>
