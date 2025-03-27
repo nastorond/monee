@@ -12,6 +12,7 @@ interface TransactionState {
   all: Transaction[];
 }
 
+// 나중에 api로 데이터 받아서 관리
 const initialState: TransactionState = {
   all: [
     { date: "2024-12-17", type: "지출", description: "점심 식사", amount: 10000 },
