@@ -16,7 +16,7 @@ const MonthPicker = () => {
   const year = useSelector((state: RootState) => state.calendar.year);
   const month = useSelector((state: RootState) => state.calendar.month);
   const [viewYear, setViewYear] = useState(year);
-  const [open, setOpen] = useState(false); // 팝업 열림 상태
+  const [open, setOpen] = useState(false);
 
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 

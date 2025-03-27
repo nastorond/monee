@@ -1,14 +1,13 @@
 // store/calendarSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// 추가 (이미 돼 있을 수도 있음)
 interface CalendarState {
   year: number;
   month: number;
   selectedDate: string | null;
 }
 
-// 초기값
+// 초기 날짜 값
 const today = new Date();
 const formattedToday = `${today.getFullYear()}-${(today.getMonth() + 1)
   .toString()
