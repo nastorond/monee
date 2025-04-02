@@ -28,63 +28,58 @@ export default function Ledger() {
 
   useEffect(() => {
     const tempIncomeData: Data[] = [
-      { date: 1, description: "월급", amount: 2000000 },
-      { date: 5, description: "보너스", amount: 500000 },
-      { date: 1, description: "월급", amount: 2000000 },
-      { date: 5, description: "보너스", amount: 500000 },      
+      { date: 1, description: "월급", amount: 2500000 },
+      { date: 20, description: "프리랜서 외주", amount: 600000 },
+      { date: 25, description: "용돈", amount: 100000 },
     ];
     setIncomeData(tempIncomeData);
-
+    
     const tempSavingsData: Data[] = [
-      { date: 1, description: "예금", amount: 20000 },
-      { date: 5, description: "적금", amount: 550000 },
-      { date: 15, description: "주식", amount: 500000 },
-      { date: 15, description: "청약", amount: 2000000 },
-      { date: 1, description: "예금", amount: 20000 },
-      { date: 5, description: "적금", amount: 550000 },
-      { date: 15, description: "주식", amount: 500000 },
-      { date: 15, description: "청약", amount: 2000000 },
+      { date: 2, description: "예금 이체", amount: 300000 },
+      { date: 5, description: "청약저축", amount: 100000 },
+      { date: 15, description: "펀드 투자", amount: 200000 },
     ];
     setSavingsData(tempSavingsData);
-
+    
     const tempFixedExpensesData: Data[] = [
-      { date: 1, description: "유튜브", amount: 20000 },
-      { date: 5, description: "넷플릭스", amount: 550000 },
-      { date: 15, description: "디즈니 플러스", amount: 500000 },
-      { date: 15, description: "보험1", amount: 2000000 },
-      { date: 16, description: "보험2", amount: 20000 },
+      { date: 1, description: "넷플릭스", amount: 14500 },
+      { date: 1, description: "휴대폰 요금", amount: 45000 },
+      { date: 10, description: "보험료", amount: 120000 },
+      { date: 15, description: "인터넷 요금", amount: 30000 },
     ];
     setFixedExpensesData(tempFixedExpensesData);
-
+    
     const tempVariableExpensesData: Data[] = [
-      { date: 1, description: "수건 5장", amount: 20000 },
-      { date: 5, description: "병원", amount: 550000 },
-      { date: 15, description: "약국", amount: 500000 },
-      { date: 12, description: "자전거 구매", amount: 2000000 },
-      { date: 13, description: "떡볶이세트", amount: 20000 },
-      { date: 15, description: "약국", amount: 5000 },
-      { date: 15, description: "붕어빵", amount: 2000 },
-      { date: 16, description: "책 구매", amount: 15000 },
-      { date: 1, description: "수건 5장", amount: 20000 },
-      { date: 5, description: "병원", amount: 550000 },
-      { date: 15, description: "약국", amount: 500000 },
-      { date: 12, description: "자전거 구매", amount: 2000000 },
-      { date: 13, description: "떡볶이세트", amount: 20000 },
-      { date: 15, description: "약국", amount: 5000 },
-      { date: 15, description: "붕어빵", amount: 2000 },
-      { date: 16, description: "책 구매", amount: 15000 },
-      { date: 1, description: "수건 5장", amount: 20000 },
-      { date: 5, description: "병원", amount: 550000 },
-      { date: 15, description: "약국", amount: 500000 },
-      { date: 12, description: "자전거 구매", amount: 2000000 },
-      { date: 13, description: "떡볶이세트", amount: 20000 },
-      { date: 15, description: "약국", amount: 5000 },
-      { date: 15, description: "붕어빵", amount: 2000 },
-      { date: 16, description: "책 구매1", amount: 15000 },
-      { date: 16, description: "책 구매2", amount: 15000 },
-      { date: 15, description: "붕어빵", amount: 2000 },
-      { date: 16, description: "책 구매1", amount: 15000 },
-      { date: 16, description: "책 구매23", amount: 15000 },
+      { date: 1, description: "아침 샌드위치", amount: 5200 },
+      { date: 2, description: "편의점 간식", amount: 4500 },
+      { date: 3, description: "카페", amount: 4800 },
+      { date: 4, description: "점심 - 분식집", amount: 7000 },
+      { date: 5, description: "배달 - 치킨", amount: 21000 },
+      { date: 6, description: "편의점", amount: 9800 },
+      { date: 7, description: "지하철 교통비", amount: 1350 },
+      { date: 8, description: "점심 - 김밥천국", amount: 6500 },
+      { date: 9, description: "카페 - 아메리카노", amount: 4500 },
+      { date: 10, description: "마트 - 간편식", amount: 23000 },
+      { date: 11, description: "편의점 도시락", amount: 4700 },
+      { date: 12, description: "병원 진료", amount: 30000 },
+      { date: 13, description: "약국", amount: 8500 },
+      { date: 14, description: "영화관", amount: 13000 },
+      { date: 15, description: "배달 - 족발", amount: 28000 },
+      { date: 16, description: "카페 - 디카페인", amount: 5200 },
+      { date: 17, description: "택시", amount: 12000 },
+      { date: 18, description: "술자리", amount: 42000 },
+      { date: 19, description: "간식 - 붕어빵", amount: 2000 },
+      { date: 20, description: "문구류 구매", amount: 5600 },
+      { date: 21, description: "책 구매", amount: 18000 },
+      { date: 22, description: "배달음식", amount: 25000 },
+      { date: 23, description: "의류 쇼핑", amount: 48000 },
+      { date: 24, description: "과일 구매", amount: 8700 },
+      { date: 25, description: "마트 장보기", amount: 78000 },
+      { date: 26, description: "카페 - 디저트", amount: 9600 },
+      { date: 27, description: "카페", amount: 5200 },
+      { date: 28, description: "편의점", amount: 5200 },
+      { date: 29, description: "배달 - 피자", amount: 23000 },
+      { date: 30, description: "미용실", amount: 40000 },
     ];
     setVariableExpensesData(tempVariableExpensesData);
   }, []);
