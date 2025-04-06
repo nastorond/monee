@@ -42,6 +42,9 @@ dependencies {
 	// MyBatis Spring Boot Starter: MyBatis를 Spring Boot에서 쉽게 사용할 수 있도록 지원하는 스타터
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
 
+	// Spring Data Commons: Pageable, PageRequest 등 페이징 관련 유틸 클래스를 사용하기 위한 의존성
+	implementation 'org.springframework.data:spring-data-commons'
+
 	// Spring Session Core: 세션 관리를 위한 라이브러리 (기본 세션 저장소를 외부로 설정할 수 있음)
 	implementation 'org.springframework.session:spring-session-core'
 
