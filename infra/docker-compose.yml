@@ -1,0 +1,60 @@
+services:
+  jenkins:
+    build:
+      context: ./jenkins
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - jenkins
+      - mysql
+    ports:
+      - "37423:37423"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/webroot:/var/www/certbot
+      - ./nginx/certs:/etc/nginx/certs
+      - ./certbot/www:/var/www/html
+      - ./certbot/conf:/etc/letsencrypt
+      - ./nextjs/out:/usr/share/nginx/html/app
+    restart: unless-stopped
+
+  # springboot:
+  #   build:
+  #     context: ./springboot
+  #   container_name: springboot
+  #   ports:
+  #     - "8081:8080"
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydatabase
+  #     SPRING_DATASOURCE_USERNAME: myuser
+  #     SPRING_DATASOURCE_PASSWORD: mypassword
+  #   depends_on:
+  #     - mysql
+  #   restart: unless-stopped
+
+volumes:
+  jenkins_home:
+  mysql_data:
