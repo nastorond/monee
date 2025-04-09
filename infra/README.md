@@ -1,3 +1,14 @@
-# Home Server with IP-based HTTPS
+# Local Mac Server with Https
 
-HTTPS via self-signed certificate using your IP.
+- using self-signed certification
+
+### now setting
+- jenkins
+- nginx
+- mysql
+
+- todo..
+    - add spring boot
+    - make pipline on jenkins with github webhook
+        - make release branch
+    - add next js build settings
