@@ -6,9 +6,13 @@ services:
     ports:
       - "8080:8080"
       - "50000:50000"
+    environment:
+      - JENKINS_OPTS=--prefix=/jenkins
     volumes:
       - jenkins_home:/var/jenkins_home
+      - ./nextjs/out:/shared/out  
     restart: unless-stopped
+    
 
   mysql:
     image: mysql:8.0
@@ -27,18 +31,14 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
-    depends_on:
-      - jenkins
-      - mysql
     ports:
       - "37423:37423"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/webroot:/var/www/certbot
       - ./nginx/certs:/etc/nginx/certs
-      - ./certbot/www:/var/www/html
-      - ./certbot/conf:/etc/letsencrypt
       - ./nextjs/out:/usr/share/nginx/html/app
+    depends_on:
+      - jenkins
     restart: unless-stopped
 
   # springboot:
