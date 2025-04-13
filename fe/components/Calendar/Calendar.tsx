@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { setSelectedDate } from "../../store/calendarSlice";
 import Month from "../Month/Month";
-import Detail from "./Detail";
+import Detail from "./CalendarDetail";
 import { useMemo } from "react";
 import "./Calendar.css";
 

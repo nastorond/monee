@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import "./Detail.css";
+import "./CalendarDetail.css";
 
 interface Transaction {
   date: string;
