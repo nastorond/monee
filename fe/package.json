@@ -9,9 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroui/dropdown": "^2.3.16",
+    "@heroui/dropdown": "^2.3.17",
     "@heroui/link": "^2.2.13",
     "@heroui/navbar": "^2.2.14",
+    "@heroui/react": "^2.7.6",
     "@heroui/system": "^2.4.12",
     "@heroui/theme": "^2.4.12",
     "@lottiefiles/react-lottie-player": "^3.6.0",
@@ -22,7 +23,7 @@
     "apexcharts": "^4.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.5.0",
+    "framer-motion": "^12.7.2",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.483.0",
     "next": "^15.2.4",
