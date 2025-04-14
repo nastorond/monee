@@ -34,7 +34,7 @@ const Statistics = () => {
       <StatisticsFilterBar type={type} onTypeChange={setType} />
       <div className="flex gap-16 w-full max-w-5xl mt-10">
         {filteredData.length === 0 ? (
-          <div className="flex flex-col items-center justify-center w-full text-gray-400">
+          <div className="flex flex-col items-center justify-center w-full text-gray-400 mt-10">
             <Player
               autoplay
               loop

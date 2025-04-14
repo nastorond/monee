@@ -40,6 +40,10 @@ const initialState: TransactionState = {
     { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
     { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
     { date: "2025-03-25", type: "수입", description: "보너스", amount: 300000 },
+    { date: "2025-04-25", type: "수입", description: "월급", amount: 300000 },
+    { date: "2025-04-5", type: "수입", description: "용돈", amount: 300000 },
+    { date: "2025-04-15", type: "수입", description: "보너스", amount: 300000 },
+    { date: "2025-04-05", type: "수입", description: "보너스", amount: 300000 },
     { date: "2025-02-15", type: "지출", description: "쇼핑", amount: 80000 },
   ],
 };

@@ -7,7 +7,7 @@ interface Props {
 
 const StatisticsFilterBar = ({ type, onTypeChange }: Props) => {
   return (
-    <div className="flex gap-4 items-center justify-between w-full max-w-5xl">
+    <div className="flex flex-end gap-4 items-center justify-center w-full max-w-5xl mt-10">
       <div className="flex gap-2">
         {(["수입", "지출"] as const).map((t) => (
           <button
