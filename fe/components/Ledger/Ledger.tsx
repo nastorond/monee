@@ -105,7 +105,7 @@ export default function Ledger() {
   //   };
 
   return (
-    <div className="m-5 p-4 flex flex-col gap-2 justify-center border rounded-xl shadow-lg">
+    <div className="m-3 p-4 flex flex-col gap-2 justify-center border rounded-xl shadow-lg">
       <div className="w-[500px] mx-auto">
         <Month />
       </div>
