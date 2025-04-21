@@ -10,8 +10,9 @@ services:
       - JENKINS_OPTS=--prefix=/jenkins
     volumes:
       - jenkins_home:/var/jenkins_home
-      - ./nextjs/out:/shared/out
+      - ./nextjs/out:/shared/out  
     restart: unless-stopped
+    
 
   mysql:
     image: mysql:8.0
@@ -27,17 +28,32 @@ services:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
 
-  fastapi:
-    build:
-      context: ./tmpBack
-    container_name: fastapi
+  nginx:
+    image: nginx:latest
+    container_name: nginx
     ports:
-      - "37423:8000"
-    environment:
-      DATABASE_URL: mysql://myuser:mypassword@mysql:3306/mydatabase
+      - "37423:37423"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nextjs/out:/usr/share/nginx/html/app
     depends_on:
-      - mysql
+      - jenkins
     restart: unless-stopped
+
+  # springboot:
+  #   build:
+  #     context: ./springboot
+  #   container_name: springboot
+  #   ports:
+  #     - "8081:8080"
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydatabase
+  #     SPRING_DATASOURCE_USERNAME: myuser
+  #     SPRING_DATASOURCE_PASSWORD: mypassword
+  #   depends_on:
+  #     - mysql
+  #   restart: unless-stopped
 
 volumes:
   jenkins_home:
