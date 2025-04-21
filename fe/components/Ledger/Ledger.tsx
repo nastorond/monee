@@ -10,10 +10,17 @@ import Details from "./Details";
 import VariableExpenses from "./VariableExpenses";
 import Total from "./Total";
 
-interface Data {
+interface Data1 {
   date: number;
   description: string;
   amount: number;
+}
+
+interface Data2 {
+  date: number;
+  description: string;
+  amount: number;
+  category: string;
 }
 
 export default function Ledger() {
@@ -21,27 +28,27 @@ export default function Ledger() {
   const year = useSelector((state: RootState) => state.calendar.year);
   const month = useSelector((state: RootState) => state.calendar.month);
 
-  const [incomeData, setIncomeData] = useState<Data[]>([]);
-  const [savingsData, setSavingsData] = useState<Data[]>([]);
-  const [fixedExpensesData, setFixedExpensesData] = useState<Data[]>([]);
-  const [variableExpensesData, setVariableExpensesData] = useState<Data[]>([]);
+  const [incomeData, setIncomeData] = useState<Data1[]>([]);
+  const [savingsData, setSavingsData] = useState<Data1[]>([]);
+  const [fixedExpensesData, setFixedExpensesData] = useState<Data1[]>([]);
+  const [variableExpensesData, setVariableExpensesData] = useState<Data2[]>([]);
 
   useEffect(() => {
-    const tempIncomeData: Data[] = [
+    const tempIncomeData: Data1[] = [
       { date: 1, description: "월급", amount: 2500000 },
       { date: 20, description: "프리랜서 외주", amount: 600000 },
       { date: 25, description: "용돈", amount: 100000 },
     ];
     setIncomeData(tempIncomeData);
     
-    const tempSavingsData: Data[] = [
+    const tempSavingsData: Data1[] = [
       { date: 2, description: "예금 이체", amount: 300000 },
       { date: 5, description: "청약저축", amount: 100000 },
       { date: 15, description: "펀드 투자", amount: 200000 },
     ];
     setSavingsData(tempSavingsData);
     
-    const tempFixedExpensesData: Data[] = [
+    const tempFixedExpensesData: Data1[] = [
       { date: 1, description: "넷플릭스", amount: 14500 },
       { date: 1, description: "휴대폰 요금", amount: 45000 },
       { date: 10, description: "보험료", amount: 120000 },
@@ -49,37 +56,37 @@ export default function Ledger() {
     ];
     setFixedExpensesData(tempFixedExpensesData);
     
-    const tempVariableExpensesData: Data[] = [
-      { date: 1, description: "아침 샌드위치", amount: 5200 },
-      { date: 2, description: "편의점 간식", amount: 4500 },
-      { date: 3, description: "카페", amount: 4800 },
-      { date: 4, description: "점심 - 분식집", amount: 7000 },
-      { date: 5, description: "배달 - 치킨", amount: 21000 },
-      { date: 6, description: "편의점", amount: 9800 },
-      { date: 7, description: "지하철 교통비", amount: 1350 },
-      { date: 8, description: "점심 - 김밥천국", amount: 6500 },
-      { date: 9, description: "카페 - 아메리카노", amount: 4500 },
-      { date: 10, description: "마트 - 간편식", amount: 23000 },
-      { date: 11, description: "편의점 도시락", amount: 4700 },
-      { date: 12, description: "병원 진료", amount: 30000 },
-      { date: 13, description: "약국", amount: 8500 },
-      { date: 14, description: "영화관", amount: 13000 },
-      { date: 15, description: "배달 - 족발", amount: 28000 },
-      { date: 16, description: "카페 - 디카페인", amount: 5200 },
-      { date: 17, description: "택시", amount: 12000 },
-      { date: 18, description: "술자리", amount: 42000 },
-      { date: 19, description: "간식 - 붕어빵", amount: 2000 },
-      { date: 20, description: "문구류 구매", amount: 5600 },
-      { date: 21, description: "책 구매", amount: 18000 },
-      { date: 22, description: "배달음식", amount: 25000 },
-      { date: 23, description: "의류 쇼핑", amount: 48000 },
-      { date: 24, description: "과일 구매", amount: 8700 },
-      { date: 25, description: "마트 장보기", amount: 78000 },
-      { date: 26, description: "카페 - 디저트", amount: 9600 },
-      { date: 27, description: "카페", amount: 5200 },
-      { date: 28, description: "편의점", amount: 5200 },
-      { date: 29, description: "배달 - 피자", amount: 23000 },
-      { date: 30, description: "미용실", amount: 40000 },
+    const tempVariableExpensesData: Data2[] = [
+      { date: 1, description: "아침 샌드위치", amount: 5200, category: "식비" },
+      { date: 2, description: "편의점 간식", amount: 4500, category: "식비" },
+      { date: 3, description: "카페", amount: 4800, category: "식비" },
+      { date: 4, description: "점심 - 분식집", amount: 7000, category: "식비" },
+      { date: 5, description: "배달 - 치킨", amount: 21000, category: "식비" },
+      { date: 6, description: "편의점", amount: 9800, category: "식비" },
+      { date: 7, description: "지하철 교통비", amount: 1350, category: "교통" },
+      { date: 8, description: "점심 - 김밥천국", amount: 6500, category: "식비" },
+      { date: 9, description: "카페 - 아메리카노", amount: 4500, category: "식비" },
+      { date: 10, description: "마트 - 간편식", amount: 23000, category: "식비" },
+      { date: 11, description: "편의점 도시락", amount: 4700, category: "식비" },
+      { date: 12, description: "병원 진료", amount: 30000, category: "건강" },
+      { date: 13, description: "약국", amount: 8500, category: "건강" },
+      { date: 14, description: "영화관", amount: 13000, category: "문화" },
+      { date: 15, description: "배달 - 족발", amount: 28000, category: "식비" },
+      { date: 16, description: "카페 - 디카페인", amount: 5200, category: "식비" },
+      { date: 17, description: "택시", amount: 12000, category: "교통" },
+      { date: 18, description: "술자리", amount: 42000, category: "유흥" },
+      { date: 19, description: "간식 - 붕어빵", amount: 2000, category: "식비" },
+      { date: 20, description: "문구류 구매", amount: 5600, category: "기타" },
+      { date: 21, description: "책 구매", amount: 18000, category: "교육" },
+      { date: 22, description: "배달음식", amount: 25000, category: "식비" },
+      { date: 23, description: "의류 쇼핑", amount: 48000, category: "쇼핑" },
+      { date: 24, description: "과일 구매", amount: 8700, category: "식비" },
+      { date: 25, description: "마트 장보기", amount: 78000, category: "식비" },
+      { date: 26, description: "카페 - 디저트", amount: 9600, category: "식비" },
+      { date: 27, description: "카페", amount: 5200, category: "식비" },
+      { date: 28, description: "편의점", amount: 5200, category: "식비" },
+      { date: 29, description: "배달 - 피자", amount: 23000, category: "식비" },
+      { date: 30, description: "미용실", amount: 40000, category: "미용" },
     ];
     setVariableExpensesData(tempVariableExpensesData);
   }, []);
@@ -133,7 +140,6 @@ export default function Ledger() {
           <div className="flew-1">
             <h2 className="mb-1 text-lg font-bold text-center">변동 지출</h2>
             <VariableExpenses type="variableExpenses" size={610} data={variableExpensesData} setData={setVariableExpensesData} />
-          
           </div>
           {/* 결산 */}
           <div className="mt-6 flew-1">
