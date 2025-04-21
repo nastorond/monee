@@ -476,4 +476,14 @@ tmpDatas = [
 @app.get("/api/history/getDetail")
 async def getDetail(date: str):
     result = tmpDatas
-    return JSONResponse(content=result, media_type="application/json; charset=utf-8")
+    return JSONResponse(
+        content=result, 
+        media_type="application/json; charset=utf-8"
+        )
+
+@app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    return JSONResponse(
+        content={"message": "Not Found"}, 
+        status_code=404
+        )
