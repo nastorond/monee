@@ -221,7 +221,7 @@ const Details: React.FC<DetailsProps> = ({ type, size, data, setData }) => {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className="w-[50%] px-2 py-1 text-xs lg:text-sm  text-center border-l border-r border-[#919191] focus:outline-none"
-            placeholder="상세 내용"
+            placeholder="상세 내역"
             maxLength={10}
           />
           <input
