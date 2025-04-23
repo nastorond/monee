@@ -1,62 +1,50 @@
-// store/transactionSlice.ts
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface Transaction {
-  date: string;
-  type: "수입" | "지출";
-  description: string;
-  amount: number;
-}
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchTransaction, Transaction } from "@/api/transaction";
 
 interface TransactionState {
   all: Transaction[];
+  loading: boolean;
+  error: string | null;
 }
 
-// 나중에 api로 데이터 받아서 관리
 const initialState: TransactionState = {
-  all: [
-    { date: "2024-12-17", type: "지출", description: "점심 식사", amount: 10000 },
-    { date: "2025-03-02", type: "수입", description: "예금 만기", amount: 25020000 },
-    { date: "2025-03-02", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-02", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-02", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-02", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-02", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-02", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-04", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-05", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-06", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-07", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-08", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-09", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-10", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-11", type: "지출", description: "커피", amount: 4500 },
-    { date: "2025-03-12", type: "지출", description: "커피", amount: 4000 },
-    { date: "2025-03-23", type: "수입", description: "예금 만기", amount: 25020000 },
-    { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
-    { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
-    { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
-    { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
-    { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
-    { date: "2025-03-24", type: "수입", description: "월급", amount: 2500000 },
-    { date: "2025-03-25", type: "수입", description: "보너스", amount: 300000 },
-    { date: "2025-04-25", type: "수입", description: "월급", amount: 300000 },
-    { date: "2025-04-5", type: "수입", description: "용돈", amount: 300000 },
-    { date: "2025-04-15", type: "수입", description: "보너스", amount: 300000 },
-    { date: "2025-04-05", type: "수입", description: "보너스", amount: 300000 },
-    { date: "2025-02-15", type: "지출", description: "쇼핑", amount: 80000 },
-  ],
+  all: [],
+  loading: false,
+  error: null,
 };
+
+export const getTransaction = createAsyncThunk(
+  "transactions/getTransaction",
+  async (month: string, thunkAPI) => {
+    try {
+      const res = await fetchTransaction(month);
+      return res;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response?.data || "서버가 아직 많이 아파요");
+    }
+  }
+);
 
 const transactionSlice = createSlice({
   name: "transactions",
   initialState,
-  reducers: {
-    addTransaction: (state, action: PayloadAction<Transaction>) => {
-      state.all.push(action.payload);
-    },
+  reducers: {},
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTransaction.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTransaction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.all = action.payload;
+      })
+      .addCase(getTransaction.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 
-export const { addTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;
