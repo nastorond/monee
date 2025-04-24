@@ -7,7 +7,7 @@ import "./CalendarDetail.css";
 
 interface Transaction {
   date: string;
-  type: "수입" | "지출";
+  category: string;
   description: string;
   amount: number;
 }
@@ -67,7 +67,7 @@ const Detail: React.FC<DetailProps> = ({ transactions }) => {
                 <div
                   key={index}
                   className={`transaction-item p-3 rounded-md text-sm flex justify-between transition-all duration-300
-                    ${item.type === "수입" ? "income" : "expense"} 
+                    ${item.category === "수입" ? "income" : "expense"} 
                     ${selectedDate === item.date ? "selected" : ""}`}
                 >
                   <span className="font-semibold">{item.description}</span>

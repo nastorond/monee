@@ -19,7 +19,8 @@ export const getTransaction = createAsyncThunk(
     try {
       const res = await fetchTransaction(month);
       return res;
-    } catch (error: any) {
+    } 
+    catch (error: any) {
       return thunkAPI.rejectWithValue(error.response?.data || "서버가 아직 많이 아파요");
     }
   }

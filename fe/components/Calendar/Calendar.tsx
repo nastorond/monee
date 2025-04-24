@@ -1,15 +1,18 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "../../store";
+
 import { RootState } from "../../store";
 import { setSelectedDate } from "../../store/calendarSlice";
 import Month from "../Month/Month";
-import Detail from "./CalendarDetail";
-import { useMemo } from "react";
+import CalendarDetail from "./CalendarDetail";
+import { useMemo, useEffect } from "react";
+import { getTransaction } from "../../store/transactionSlice";
 import "./Calendar.css";
 
 const Calendar = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const year = useSelector((state: RootState) => state.calendar.year);
   const month = useSelector((state: RootState) => state.calendar.month);
@@ -17,6 +20,14 @@ const Calendar = () => {
   const transactions = useSelector((state: RootState) => state.transactions.all);
 
   const currentMonthStr = month.toString().padStart(2, "0");
+
+  useEffect(() => {
+    const monthStr = `${year}-${month.toString().padStart(2, "0")}`;
+    console.log("📦 프론트가 요청하는 날짜 형식:", monthStr);
+    dispatch(getTransaction(monthStr));
+  }, [year, month, dispatch]);
+
+  console.log(transactions);
 
   const filteredTransactions = useMemo(() => {
     return transactions.filter((t) =>
@@ -33,9 +44,9 @@ const Calendar = () => {
   const getLastDayPrevMonth = (year: number, month: number) =>
     new Date(year, month - 1, 0).getDate();
 
-  const getMonthlyTotal = (type: "수입" | "지출") => {
+  const getMonthlyTotal = (category: "수입" | "지출") => {
     return filteredTransactions
-      .filter((t) => t.type === type)
+      .filter((t) => t.category === category)
       .reduce((sum, t) => sum + t.amount, 0);
   };
 
@@ -68,16 +79,14 @@ const Calendar = () => {
             {/* 이번 달 */}
             {[...Array(getLastDay(year, month))].map((_, index) => {
               const day = index + 1;
-              const dateKey = `${year}-${currentMonthStr}-${day
-                .toString()
-                .padStart(2, "0")}`;
+              const dateKey = `${year}-${currentMonthStr}-${day.toString().padStart(2, "0")}`;
 
               const dayTransactions = transactions.filter((t) => t.date === dateKey);
               const incomeTotal = dayTransactions
-                .filter((t) => t.type === "수입")
+                .filter((t) => t.category === "수입")
                 .reduce((sum, t) => sum + t.amount, 0);
               const expenseTotal = dayTransactions
-                .filter((t) => t.type === "지출")
+                .filter((t) => t.category !== "수입")
                 .reduce((sum, t) => sum + t.amount, 0);
 
               return (
@@ -117,7 +126,7 @@ const Calendar = () => {
           </div>
         </div>
 
-        <Detail transactions={filteredTransactions} />
+        <CalendarDetail transactions={filteredTransactions} />
       </div>
     </div>
   );
