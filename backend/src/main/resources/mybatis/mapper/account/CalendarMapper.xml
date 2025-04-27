@@ -13,7 +13,7 @@
         FROM History H
                  INNER JOIN User U ON U.user_id = H.user_id
         WHERE U.user_id = #{userId}
-          AND DATE_FORMAT(H.date, '%Y-%m') = DATE_FORMAT(STR_TO_DATE(#{date}, '%Y-%m'), '%Y-%m')
+          AND DATE_FORMAT(H.date, '%Y-%m') = #{date}
           AND H.is_delete = 0
     </select>
 
@@ -28,9 +28,9 @@
             DATE(H.date) AS date
         FROM History H
             INNER JOIN User U ON U.user_id = H.user_id
-            INNER JOIN Category C ON C.category_id = H.category_id
+            LEFT JOIN Category C ON C.category_id = H.category_id
         WHERE U.user_id = #{userId}
-            AND DATE_FORMAT(H.date, '%Y-%m') = DATE_FORMAT(#{date}, '%Y-%m')
+            AND DATE_FORMAT(H.date, '%Y-%m') = #{date}
             AND H.is_delete = 0
         ORDER BY H.date ASC
     </select>
