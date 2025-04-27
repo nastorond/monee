@@ -10,5 +10,9 @@ import lombok.ToString;
 public class Category {
     private int categoryId;
 
+    private int userId;
+
     private String categoryName;
+
+    private boolean isActive = true;
 }

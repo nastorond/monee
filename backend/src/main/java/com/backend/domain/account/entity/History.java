@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,13 +18,13 @@ public class History {
 
     private int categoryId;
 
-    private boolean income;
+    private boolean isIncome;
 
     private String comment;
 
     private int amount;
 
-    private LocalDateTime date;
+    private Date date;
 
     private boolean isDelete;
 }
