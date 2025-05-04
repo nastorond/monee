@@ -15,9 +15,11 @@ public class HistoryDto {
 
     private int historyId;
 
-    private String categoryName;
-
     private boolean isIncome;
+
+    private String classificationName;
+
+    private String categoryName;
 
     private String comment;
 

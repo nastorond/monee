@@ -16,9 +16,11 @@ public class History {
 
     private int userId;
 
-    private int categoryId;
-
     private boolean isIncome;
+
+    private int classificationId;
+
+    private int categoryId;
 
     private String comment;
 

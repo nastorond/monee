@@ -21,14 +21,16 @@
     <select id="findHistoryByMonth" resultType="com.backend.domain.account.dto.HistoryDto">
         SELECT
             H.history_id AS historyId,
-            C.category_name AS categoryName,
             H.is_income AS isIncome,
+            Cl.classification_name AS classificationName,
+            Ca.category_name AS categoryName,
             H.comment,
             H.amount,
             DATE(H.date) AS date
         FROM History H
             INNER JOIN User U ON U.user_id = H.user_id
-            LEFT JOIN Category C ON C.category_id = H.category_id
+            LEFT JOIN Classification Cl ON Cl.classification_id = H.classification_id
+            LEFT JOIN Category Ca ON Ca.category_id = H.category_id
         WHERE U.user_id = #{userId}
             AND DATE_FORMAT(H.date, '%Y-%m') = #{date}
             AND H.is_delete = 0
