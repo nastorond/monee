@@ -8,10 +8,11 @@
     <!-- 총 결산 내역 - 총수입, 총지출 조회 -->
     <select id="getTotalAmountByMonth" resultType="com.backend.domain.account.dto.CalendarListResponseDto">
         SELECT
-            IFNULL(SUM(CASE WHEN H.is_income = 1 THEN H.amount ELSE 0 END), 0) AS totalIncome,
-            IFNULL(SUM(CASE WHEN H.is_income = 0 THEN H.amount ELSE 0 END), 0) AS totalExpenses
+            IFNULL(SUM(CASE WHEN Cl.is_income = 1 THEN H.amount ELSE 0 END), 0) AS totalIncome,
+            IFNULL(SUM(CASE WHEN Cl.is_income = 0 THEN H.amount ELSE 0 END), 0) AS totalExpenses
         FROM History H
-                 INNER JOIN User U ON U.user_id = H.user_id
+            INNER JOIN User U ON U.user_id = H.user_id
+            INNER JOIN Classification Cl ON Cl.classification_id = H.classification_id
         WHERE U.user_id = #{userId}
           AND DATE_FORMAT(H.date, '%Y-%m') = #{date}
           AND H.is_delete = 0
@@ -21,7 +22,6 @@
     <select id="findHistoryByMonth" resultType="com.backend.domain.account.dto.HistoryDto">
         SELECT
             H.history_id AS historyId,
-            H.is_income AS isIncome,
             Cl.classification_name AS classificationName,
             Ca.category_name AS categoryName,
             H.comment,
@@ -29,7 +29,7 @@
             DATE(H.date) AS date
         FROM History H
             INNER JOIN User U ON U.user_id = H.user_id
-            LEFT JOIN Classification Cl ON Cl.classification_id = H.classification_id
+            INNER JOIN Classification Cl ON Cl.classification_id = H.classification_id
             LEFT JOIN Category Ca ON Ca.category_id = H.category_id
         WHERE U.user_id = #{userId}
             AND DATE_FORMAT(H.date, '%Y-%m') = #{date}

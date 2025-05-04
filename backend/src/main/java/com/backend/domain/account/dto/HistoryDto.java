@@ -15,8 +15,6 @@ public class HistoryDto {
 
     private int historyId;
 
-    private boolean isIncome;
-
     private String classificationName;
 
     private String categoryName;

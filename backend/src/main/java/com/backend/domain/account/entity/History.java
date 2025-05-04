@@ -16,8 +16,6 @@ public class History {
 
     private int userId;
 
-    private boolean isIncome;
-
     private int classificationId;
 
     private int categoryId;

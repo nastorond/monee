@@ -10,6 +10,8 @@ import lombok.ToString;
 public class Classification {
     private int classificationId;
 
+    private int isIncome;
+
     private String classificationName;
 
     private boolean isActive = true;
