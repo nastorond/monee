@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.domain.account.dao.HistoryDao">
+
+    <!-- 총 결산 내역 - 총수입, 총지출 조회 -->
+    <select id="getTotalAmountByMonth" resultType="com.backend.domain.account.dto.HistoryListResponseDto">
+        SELECT
+            IFNULL(SUM(CASE WHEN Cl.is_income = 1 THEN H.amount ELSE 0 END), 0) AS totalIncome,
+            IFNULL(SUM(CASE WHEN Cl.is_income = 0 THEN H.amount ELSE 0 END), 0) AS totalExpenses
+        FROM History H
+            INNER JOIN User U ON U.user_id = H.user_id
+            INNER JOIN Classification Cl ON Cl.classification_id = H.classification_id
+        WHERE U.user_id = #{userId}
+          AND DATE_FORMAT(H.date, '%Y-%m') = #{date}
+          AND H.is_delete = 0
+    </select>
+
+    <!-- 월별 내역 -->
+    <select id="findHistoryByMonth" resultType="com.backend.domain.account.dto.HistoryDto">
+        SELECT
+            H.history_id AS historyId,
+            Cl.classification_name AS classificationName,
+            Ca.category_name AS categoryName,
+            H.comment,
+            H.amount,
+            DATE(H.date) AS date
+        FROM History H
+            INNER JOIN User U ON U.user_id = H.user_id
+            INNER JOIN Classification Cl ON Cl.classification_id = H.classification_id
+            LEFT JOIN Category Ca ON Ca.category_id = H.category_id
+        WHERE U.user_id = #{userId}
+            AND DATE_FORMAT(H.date, '%Y-%m') = #{date}
+            AND H.is_delete = 0
+        ORDER BY H.date ASC
+    </select>
+
+</mapper>
