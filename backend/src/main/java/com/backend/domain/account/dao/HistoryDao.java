@@ -1,5 +1,6 @@
 package com.backend.domain.account.dao;
 
+import com.backend.domain.account.dto.CategoryDto;
 import com.backend.domain.account.dto.HistoryDto;
 import com.backend.domain.account.dto.HistoryListResponseDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,5 +18,7 @@ public interface HistoryDao {
     // 월별 내역
     public List<HistoryDto> findHistoryByMonth(@Param("userId") String userId, @Param("date") YearMonth date);
 
+    // 카테고리 리스트 조회
+    public List<CategoryDto> getCategoryList(String userId);
 
 }

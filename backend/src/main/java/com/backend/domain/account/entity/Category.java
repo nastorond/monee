@@ -12,6 +12,8 @@ public class Category {
 
     private int userId;
 
+    private int order;
+
     private String categoryName;
 
     private boolean isActive = true;

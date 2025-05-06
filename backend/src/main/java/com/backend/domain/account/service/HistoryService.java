@@ -1,8 +1,7 @@
 package com.backend.domain.account.service;
 
 import com.backend.domain.account.dao.HistoryDao;
-import com.backend.domain.account.dto.HistoryDto;
-import com.backend.domain.account.dto.HistoryListResponseDto;
+import com.backend.domain.account.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,13 @@ public class HistoryService {
                 totalAmount.getTotalIncome(),
                 totalAmount.getTotalExpenses(),
                 groupedHistoryByClassification
+        );
+    }
+
+    // 카테고리 목록 조회
+    public CategoryListResponseDto getCategoryList(String userId) {
+        return new CategoryListResponseDto(
+                historyDao.getCategoryList(userId)
         );
     }
 

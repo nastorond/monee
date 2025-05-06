@@ -37,4 +37,16 @@
         ORDER BY H.date ASC
     </select>
 
+    <!-- 카테고리 목록 조회 -->
+    <select id="getCategoryList" resultType="com.backend.domain.account.dto.CategoryDto">
+        SELECT
+            C.category_id AS categoryId,
+            C.order,
+            C.category_name AS categoryName
+        FROM Category C
+            INNER JOIN USER U ON U.user_id = C.user_id
+        WHERE C.is_active = 1
+        ORDER BY C.order;
+    </select>
+
 </mapper>
